@@ -1,0 +1,11 @@
+{
+  "name": "mafia_resistance_game",
+  "version": "1.0.0",
+  "description": "Mafia resistance (game)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yurii Bilas",
+  "license": "ISC"
+}
