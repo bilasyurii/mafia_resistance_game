@@ -212,6 +212,11 @@ async function main() {
     await step(page, "day 1: confirm leader (Alice) and default team size 2", async () => {
       const teamSizeValue = await page.locator(".stepper-value").first().innerText();
       assert.equal(teamSizeValue, "2", "mission 1 with 5 players should suggest a team of 2");
+      await page.waitForSelector('text="Suggested by the rules: 2"');
+      await btn(page, "+").click();
+      assert.equal(await page.locator(".suggested-size-differs").count(), 1, "an overridden size must flag the suggestion");
+      await btn(page, "-").click();
+      assert.equal(await page.locator(".suggested-size-differs").count(), 0);
       await btn(page, "Confirm & start discussion").click();
       await page.waitForSelector('text="Discussion"');
     });

@@ -41,6 +41,14 @@ test("getMissionRule returns official team sizes for every supported player coun
     [2, 3, 2, 3, 3]
   );
   assert.deepEqual(
+    [1, 2, 3, 4, 5].map((m) => getMissionRule(6, m).teamSize),
+    [2, 3, 3, 3, 4]
+  );
+  assert.deepEqual(
+    [1, 2, 3, 4, 5].map((m) => getMissionRule(8, m).teamSize),
+    [3, 4, 4, 5, 5]
+  );
+  assert.deepEqual(
     [1, 2, 3, 4, 5].map((m) => getMissionRule(7, m).teamSize),
     [2, 3, 3, 4, 4]
   );

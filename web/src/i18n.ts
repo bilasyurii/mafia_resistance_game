@@ -52,6 +52,7 @@ export interface Dictionary {
   dayLeaderTitle: string;
   daySelectLeaderInstruction: string;
   dayTeamSizeLabel: string;
+  daySuggestedTeamSize: (n: number) => string;
   dayConfirmLeaderButton: string;
   dayDiscussionTitle: string;
   dayNominateInstruction: (size: number) => string;
@@ -151,6 +152,7 @@ const en: Dictionary = {
   dayLeaderTitle: "Choose the leader",
   daySelectLeaderInstruction: "Tap a player to make them the mission leader",
   dayTeamSizeLabel: "Players needed for this mission",
+  daySuggestedTeamSize: (n) => `Suggested by the rules: ${n}`,
   dayConfirmLeaderButton: "Confirm & start discussion",
   dayDiscussionTitle: "Discussion",
   dayNominateInstruction: (size) => `Leader nominates ${size} player(s) for the mission`,
@@ -250,6 +252,7 @@ const uk: Dictionary = {
   dayLeaderTitle: "Оберіть лідера",
   daySelectLeaderInstruction: "Торкніться гравця, щоб зробити його лідером місії",
   dayTeamSizeLabel: "Гравців потрібно для місії",
+  daySuggestedTeamSize: (n) => `Рекомендовано правилами: ${n}`,
   dayConfirmLeaderButton: "Підтвердити та почати обговорення",
   dayDiscussionTitle: "Обговорення",
   dayNominateInstruction: (size) => `Лідер висуває ${size} гравця(ів) на місію`,

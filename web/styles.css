@@ -469,3 +469,8 @@ body {
   font-weight: 700;
   color: var(--danger);
 }
+
+.suggested-size-differs {
+  color: var(--danger);
+  font-weight: 700;
+}

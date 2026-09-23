@@ -816,6 +816,8 @@ function buildLeaderStage(): HTMLElement {
   );
   sizeRow.appendChild(stepper);
   wrap.appendChild(sizeRow);
+  const suggestedSize = getMissionRule(state.players.length, state.currentMissionNumber).teamSize;
+  wrap.appendChild(el("div", "field-hint suggested-size" + (state.teamSize !== suggestedSize ? " suggested-size-differs" : ""), lang.daySuggestedTeamSize(suggestedSize)));
 
   wrap.appendChild(
     button(
