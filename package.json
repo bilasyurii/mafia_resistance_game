@@ -10,7 +10,8 @@
     "test:web": "TS_NODE_PROJECT=web/tsconfig.json node --require ts-node/register --test \"web/src/**/*.test.ts\"",
     "test": "npm run test:web",
     "playtest": "npm run build:web && node web/scripts/playtest.js",
-    "deploy:web": "npm run build:web && node web/scripts/deploy.js"
+    "deploy:web": "npm run build:web && node web/scripts/deploy.js",
+    "build:offline": "npm run build:web && node web/scripts/build-single-file.js"
   },
   "author": "Yurii Bilas",
   "license": "ISC",
