@@ -21,6 +21,7 @@ export type BeepKind = "clock" | "tick" | "final";
 
 /** `clock` is the quiet per-second ticking sound; `tick` is the short beep used at each countdown checkpoint; `final` is the longer, higher-pitched beep played at 0 seconds or when all mission decisions are confirmed. */
 export function playBeep(kind: BeepKind): void {
+  if (document.hidden) return; // never make noise while the app is in the background
   try {
     const audioCtx = getContext();
     if (!audioCtx) return;

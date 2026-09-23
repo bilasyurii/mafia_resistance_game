@@ -60,6 +60,8 @@ export interface Dictionary {
   dayTimerDurationLabel: string;
   dayStartTimerButton: string;
   dayStopTimerButton: string;
+  pauseTimerButton: string;
+  resumeTimerButton: string;
   dayProceedToVoting: string;
   dayVotingTitle: string;
   dayVotingInstruction: string;
@@ -160,6 +162,8 @@ const en: Dictionary = {
   dayTimerDurationLabel: "Timer (seconds)",
   dayStartTimerButton: "Start timer",
   dayStopTimerButton: "Stop timer",
+  pauseTimerButton: "Pause",
+  resumeTimerButton: "Resume",
   dayProceedToVoting: "Proceed to voting",
   dayVotingTitle: "Voting",
   dayVotingInstruction: "Ask who approves this team, then tap them. Anyone not marked is counted against.",
@@ -260,6 +264,8 @@ const uk: Dictionary = {
   dayTimerDurationLabel: "Таймер (секунд)",
   dayStartTimerButton: "Запустити таймер",
   dayStopTimerButton: "Зупинити таймер",
+  pauseTimerButton: "Пауза",
+  resumeTimerButton: "Продовжити",
   dayProceedToVoting: "Перейти до голосування",
   dayVotingTitle: "Голосування",
   dayVotingInstruction: "Запитайте, хто підтримує цю команду, і відзначте їх. Хто не відзначений - вважається проти.",

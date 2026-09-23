@@ -192,6 +192,13 @@ async function main() {
       await page.locator(".tap-anywhere").click();
       await page.waitForSelector(".timer-seconds");
       await page.waitForTimeout(3000);
+      await btn(page, "Pause").click();
+      const pausedAt = Number(await page.locator(".timer-seconds").innerText());
+      await page.waitForTimeout(2500);
+      assert.equal(Number(await page.locator(".timer-seconds").innerText()), pausedAt, "a paused timer must not tick");
+      await btn(page, "Resume").click();
+      await page.waitForTimeout(1500);
+      assert.ok(Number(await page.locator(".timer-seconds").innerText()) < pausedAt, "a resumed timer must tick again");
       const beforeReload = Number(await page.locator(".timer-seconds").innerText());
       assert.ok(beforeReload <= 27, `expected the timer to have ticked down before reload, saw ${beforeReload}`);
 

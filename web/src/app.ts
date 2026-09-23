@@ -36,6 +36,7 @@ interface CountdownTimer {
   totalSeconds: number;
   remainingSeconds: number;
   running: boolean;
+  paused?: boolean;
   beepSchedule: number[];
 }
 
@@ -199,7 +200,7 @@ function startMissionStopwatch(): void {
  */
 function resumeIntervalsIfNeeded(): void {
   const inDiscussion = state.screen === "day" && state.dayStage === "discussion";
-  if (state.countdownTimer && state.countdownTimer.running && (state.screen === "night" || inDiscussion)) {
+  if (state.countdownTimer && state.countdownTimer.running && !state.countdownTimer.paused && (state.screen === "night" || inDiscussion)) {
     activeInterval = setInterval(tickCountdown, 1000);
     return;
   }
@@ -666,6 +667,7 @@ function buildNightScreen(): HTMLElement {
 
   if (state.countdownTimer.running) {
     screen.appendChild(buildTimerDisplay());
+    screen.appendChild(buildPauseResumeButton());
     return screen;
   }
 
@@ -687,7 +689,7 @@ function buildNightScreen(): HTMLElement {
 
 function buildTimerDisplay(): HTMLElement {
   const timer = state.countdownTimer!;
-  const wrap = el("div", "timer-display");
+  const wrap = el("div", "timer-display" + (timer.paused ? " timer-display-paused" : ""));
   wrap.appendChild(el("div", "timer-seconds", String(timer.remainingSeconds)));
   return wrap;
 }
@@ -707,13 +709,35 @@ function startCountdown(requestedSeconds: number): void {
 
 function stopCountdown(): void {
   clearActiveInterval();
-  if (state.countdownTimer) state.countdownTimer.running = false;
+  if (state.countdownTimer) {
+    state.countdownTimer.running = false;
+    state.countdownTimer.paused = false;
+  }
   render();
+}
+
+function buildPauseResumeButton(): HTMLButtonElement {
+  const lang = t(state.language);
+  const timer = state.countdownTimer!;
+  return button(
+    timer.paused ? lang.resumeTimerButton : lang.pauseTimerButton,
+    () => {
+      if (timer.paused) {
+        timer.paused = false;
+        activeInterval = setInterval(tickCountdown, 1000);
+      } else {
+        timer.paused = true;
+        clearActiveInterval();
+      }
+      render();
+    },
+    "btn btn-large pause-btn"
+  );
 }
 
 function tickCountdown(): void {
   const timer = state.countdownTimer;
-  if (!timer || !timer.running) return;
+  if (!timer || !timer.running || timer.paused) return;
   timer.remainingSeconds -= 1;
   if (timer.remainingSeconds <= 0) {
     timer.remainingSeconds = 0;
@@ -868,6 +892,7 @@ function buildDiscussionStage(): HTMLElement {
 
   if (state.countdownTimer && state.countdownTimer.running) {
     wrap.appendChild(buildTimerDisplay());
+    wrap.appendChild(buildPauseResumeButton());
     wrap.appendChild(button(lang.dayStopTimerButton, stopCountdown, "btn btn-danger btn-large"));
   } else {
     wrap.appendChild(

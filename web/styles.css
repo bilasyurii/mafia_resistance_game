@@ -474,3 +474,7 @@ body {
   color: var(--danger);
   font-weight: 700;
 }
+
+.timer-display-paused {
+  opacity: 0.4;
+}
